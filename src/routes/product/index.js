@@ -2,15 +2,20 @@
 
 const router = require('express').Router()
 
+const productController = require('../../controllers/product.controller')
 const { accessTokenValidator } = require('../../middlewares/auth.middleware')
 const asyncHandler = require('../../utils/async-handler.util')
 
 router.use(accessTokenValidator)
 
-router.get('/', asyncHandler())
+router.post('/', asyncHandler(productController.createProduct))
 
-router.put('/:id', asyncHandler())
+router.get('/', asyncHandler(productController.getAllProducts))
 
-router.delete('/:id', asyncHandler())
+router.get('/:id', asyncHandler(productController.getDetailProduct))
+
+router.put('/:id', asyncHandler(productController.updateProduct))
+
+router.delete('/:id', asyncHandler(productController.deleteProduct))
 
 module.exports = router
