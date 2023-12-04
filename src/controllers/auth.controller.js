@@ -11,45 +11,45 @@ const { AUTH_MESSAGES } = require('../constants/messages.constant')
 const AuthService = require('../services/auth/auth.service')
 
 class AuthController {
-  refreshToken = async (req, res) => {
-    const data = await AuthService.refreshToken(req.body.token)
-    return res.status(OK.code).json(
-      new SuccessResponse({
-        message: AUTH_MESSAGES.REFRESH_TOKEN_SUCCESS,
-        data
-      })
-    )
-  }
+    refreshToken = async (req, res) => {
+        const data = await AuthService.refreshToken(req.body.token)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: AUTH_MESSAGES.REFRESH_TOKEN_SUCCESS,
+                data
+            })
+        )
+    }
 
-  logout = async (req, res) => {
-    const data = await AuthService.logout(req.decodedUser.userId)
-    return res.status(OK.code).json(
-      new SuccessResponse({
-        message: AUTH_MESSAGES.LOGOUT_SUCCESS,
-        data
-      })
-    )
-  }
+    logout = async (req, res) => {
+        const data = await AuthService.logout(req.decodedUser.userId)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: AUTH_MESSAGES.LOGOUT_SUCCESS,
+                data
+            })
+        )
+    }
 
-  login = async (req, res) => {
-    const data = await AuthService.login(req.body)
-    return res.status(OK.code).json(
-      new SuccessResponse({
-        message: AUTH_MESSAGES.LOGIN_SUCCESS,
-        data
-      })
-    )
-  }
+    login = async (req, res) => {
+        const data = await AuthService.login(req.body)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: AUTH_MESSAGES.LOGIN_SUCCESS,
+                data
+            })
+        )
+    }
 
-  register = async (req, res) => {
-    const data = await AuthService.register(req.body)
-    return res.status(CREATED.code).json(
-      new CreatedResponse({
-        message: AUTH_MESSAGES.SIGNUP_SUCCESS,
-        data
-      })
-    )
-  }
+    register = async (req, res) => {
+        const data = await AuthService.register(req.body)
+        return res.status(CREATED.code).json(
+            new CreatedResponse({
+                message: AUTH_MESSAGES.SIGNUP_SUCCESS,
+                data
+            })
+        )
+    }
 }
 
 module.exports = new AuthController()

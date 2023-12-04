@@ -2,18 +2,18 @@
 
 ## 1. System's Roles
 
-- User
-- Seller
-- Admin
+-   User
+-   Seller
+-   Admin
 
 ## 2. Key Features
 
 ### Authentication and authorization
 
-- Register
-- Login
-- Logout
-- Refresh token
+-   Register
+-   Login
+-   Logout
+-   Refresh token
 
 ### Product
 
@@ -21,10 +21,10 @@
 
 ## 4. Technologies
 
-- IDE: Visual Studio Code
-- JavaScript
-- Nodejs v18.17.1
-- MongoDB
+-   IDE: Visual Studio Code
+-   JavaScript
+-   Nodejs v18.17.1
+-   MongoDB
 
 ## 5. Getting Started
 
@@ -38,13 +38,13 @@ git clone https://github.com/plongtran239/ecommerce-nodejs-backend
 
 2. Run project:
 
-- Install packages
+-   Install packages
 
 ```
 npm install
 ```
 
-- Run project with local database
+-   Run project with local database
 
 ```
 npm run dev
@@ -60,4 +60,4 @@ npm run dev:pro
 
 For any questions or suggestions, please contact us via email:
 
-- plongtran239@gmail.com
+-   plongtran239@gmail.com
