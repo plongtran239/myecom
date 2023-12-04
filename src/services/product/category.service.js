@@ -1,10 +1,12 @@
+'use strict'
+
 const { CATEGORY_ERROR_MESSAGES } = require('../../constants/messages.constant')
 const { BadRequestError } = require('../../models/error.response')
 const categoryModel = require('../../models/schemas/category.schema')
 
 class CategoryService {
     static createCategory = async ({ name }) => {
-        const existedCategory = await this.findByName(name)
+        const existedCategory = await this.findCategoryByName(name)
         if (existedCategory) {
             throw new BadRequestError(CATEGORY_ERROR_MESSAGES.CATEGORY_ALREADY_EXISTS)
         }
@@ -25,15 +27,19 @@ class CategoryService {
     }
 
     static deleteCategory = async (id) => {
-        const category = await categoryModel.findById(id)
+        const category = await this.findCategoryById(id)
         if (!category) {
             throw new BadRequestError(CATEGORY_ERROR_MESSAGES.CATEGORY_NOT_FOUND)
         }
         return await categoryModel.findByIdAndDelete(id)
     }
 
-    static findByName = async (name) => {
+    static findCategoryByName = async (name) => {
         return await categoryModel.findOne({ name }).lean()
+    }
+
+    static findCategoryById = async (id) => {
+        return await categoryModel.findById(id).lean()
     }
 }
 

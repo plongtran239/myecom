@@ -4,7 +4,6 @@ const { Schema, model } = require('mongoose')
 
 const { COLLECTION_NAMES, DOCUMENT_NAMES } = require('../../constants/database.constant')
 
-// Declare the Schema of the Mongo model
 const tokenSchema = new Schema(
     {
         user: {

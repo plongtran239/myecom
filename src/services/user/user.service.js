@@ -1,4 +1,9 @@
+'use strict'
+
+// Constants
 const { USER_ERROR_MESSAGES } = require('../../constants/messages.constant')
+
+// Models
 const { BadRequestError } = require('../../models/error.response')
 const userModel = require('../../models/schemas/user.schema')
 
@@ -16,11 +21,11 @@ class UserService {
         await user.save()
     }
 
-    static findById = async (id) => {
+    static findUserById = async (id) => {
         return await userModel.findById(id).lean()
     }
 
-    static findByEmail = async (email) => {
+    static findUserByEmail = async (email) => {
         return await userModel.findOne({ email }).lean()
     }
 
