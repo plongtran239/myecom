@@ -17,7 +17,7 @@ const productSchema = new Schema(
             default: []
         },
         seller: {
-            type: Schema.Types.Mixed,
+            type: Schema.Types.ObjectId,
             ref: DOCUMENT_NAMES.USER,
             required: true
         },
@@ -26,7 +26,7 @@ const productSchema = new Schema(
             trim: true
         },
         category: {
-            type: Schema.Types.Mixed,
+            type: Schema.Types.ObjectId,
             ref: DOCUMENT_NAMES.CATEGORY,
             required: true
         },
@@ -42,12 +42,10 @@ const productSchema = new Schema(
             type: Number,
             default: 0
         },
-        // reviews: [
-        //     {
-        //         type: [Schema.Types.ObjectId],
-        //         ref: DOCUMENT_NAMES.REVIEW
-        //     }
-        // ],
+        reviews: {
+            type: [Schema.Types.ObjectId],
+            ref: DOCUMENT_NAMES.REVIEW
+        },
         variants: {
             type: Array,
             default: []

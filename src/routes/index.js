@@ -2,12 +2,16 @@
 
 const router = require('express').Router()
 
-router.use('/api/v1/auth', require('./auth'))
+const API_ROUTE = '/api/'
 
-router.use('/api/v1/users', require('./user'))
+router.use(API_ROUTE + 'auth', require('./auth'))
 
-router.use('/api/v1/categories', require('./category'))
+router.use(API_ROUTE + 'users', require('./user'))
 
-router.use('/api/v1/products', require('./product'))
+router.use(API_ROUTE + 'products', require('./product'))
+
+router.use(API_ROUTE + 'categories', require('./category'))
+
+router.use(API_ROUTE + 'reviews', require('./review'))
 
 module.exports = router

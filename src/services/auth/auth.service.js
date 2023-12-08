@@ -30,7 +30,7 @@ class AuthService {
             throw new UnauthorizedError(AUTH_ERROR_MESSAGES.INVALID_REFRESH_TOKEN)
         }
         const { userId, email } = decodedUser
-        const user = await UserService.findByEmail(email)
+        const user = await UserService.findUserByEmail(email)
         if (!user) {
             throw new NotFoundError(USER_ERROR_MESSAGES.USER_NOT_FOUND)
         }
@@ -49,7 +49,7 @@ class AuthService {
     }
 
     static login = async ({ email, password }) => {
-        const user = await UserService.findByEmail(email)
+        const user = await UserService.findUserByEmail(email)
         if (!user) {
             throw new NotFoundError(USER_ERROR_MESSAGES.EMAIL_NOT_FOUND)
         }

@@ -14,14 +14,16 @@ const DOCUMENT_NAMES = {
     USER: 'User',
     TOKEN: 'Token',
     CATEGORY: 'Category',
-    PRODUCT: 'Product'
+    PRODUCT: 'Product',
+    REVIEW: 'Review'
 }
 
 const COLLECTION_NAMES = {
     USERS: 'Users',
     TOKENS: 'Tokens',
     CATEGORIES: 'Categories',
-    PRODUCTS: 'Products'
+    PRODUCTS: 'Products',
+    REVIEWS: 'Reviews'
 }
 
 module.exports = {
