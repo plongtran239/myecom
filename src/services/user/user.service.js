@@ -6,6 +6,8 @@ const { USER_ERROR_MESSAGES } = require('../../constants/messages.constant')
 // Models
 const { BadRequestError } = require('../../models/error.response')
 const userModel = require('../../models/schemas/user.schema')
+const tokenModel = require('../../models/schemas/token.schema')
+const productModel = require('../../models/schemas/product.schema')
 
 class UserService {
     static getAllUsers = async () => {
@@ -35,6 +37,8 @@ class UserService {
             throw new BadRequestError(USER_ERROR_MESSAGES.USER_NOT_FOUND)
         }
         await userModel.findByIdAndDelete(id)
+        await tokenModel.deleteMany({ user: id })
+        await productModel.deleteMany({ user: id })
     }
 }
 

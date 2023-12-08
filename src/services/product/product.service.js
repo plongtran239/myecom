@@ -17,6 +17,7 @@ const { getInfoData } = require('../../utils/lodash.util')
 // Services
 const CategoryService = require('../product/category.service')
 const UserService = require('../user/user.service')
+const ReviewService = require('./review.service')
 
 class ProductService {
     static createProduct = async (sellerId, productRequest) => {
@@ -48,7 +49,11 @@ class ProductService {
     }
 
     static getAllProducts = async () => {
-        return await productModel.find().lean()
+        return await productModel
+            .find()
+            .populate({ path: 'category', select: '_id name' })
+            .populate({ path: 'seller', select: '_id name email' })
+            .lean()
     }
 
     static getDetailProduct = async (id) => {
@@ -79,7 +84,33 @@ class ProductService {
             throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_NOT_FOUND)
         }
 
+        await ReviewService.deleteAllReviewsOfProduct(id)
+
         return await productModel.findByIdAndDelete(id).lean()
+    }
+
+    static updateReviewToProduct = async (productId, reviewId) => {
+        const existedProduct = await productModel.findById(productId)
+        if (!existedProduct) {
+            throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_NOT_FOUND)
+        }
+
+        console.log('reviewId', reviewId)
+
+        existedProduct.reviews.push(reviewId)
+
+        return await existedProduct.save()
+    }
+
+    static deleteReviewFromProduct = async (productId, reviewId) => {
+        const existedProduct = await productModel.findById(productId)
+        if (!existedProduct) {
+            throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_NOT_FOUND)
+        }
+
+        existedProduct.reviews = existedProduct.reviews.filter((review) => review._id !== reviewId)
+
+        return await existedProduct.save()
     }
 
     static findProductById = async (id) => {

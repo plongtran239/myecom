@@ -52,6 +52,17 @@ const PRODUCT_ERROR_MESSAGES = {
     PRODUCT_NOT_FOUND: 'Product not found'
 }
 
+const REVIEW_MESSAGES = {
+    CREATE_REVIEW_SUCCESS: 'Create review successfully',
+    GET_ALL_REVIEWS_OF_PRODUCT_SUCCESS: 'Get all review of product successfully',
+    UPDATE_REVIEW_SUCCESS: 'Update review successfully',
+    DELETE_REVIEW_SUCCESS: 'Delete review successfully'
+}
+
+const REVIEW_ERROR_MESSAGES = {
+    REVIEW_NOT_FOUND: 'Review not found'
+}
+
 module.exports = {
     AUTH_MESSAGES,
     AUTH_ERROR_MESSAGES,
@@ -61,5 +72,7 @@ module.exports = {
     CATEGORY_MESSAGES,
     CATEGORY_ERROR_MESSAGES,
     PRODUCT_MESSAGES,
-    PRODUCT_ERROR_MESSAGES
+    PRODUCT_ERROR_MESSAGES,
+    REVIEW_MESSAGES,
+    REVIEW_ERROR_MESSAGES
 }
