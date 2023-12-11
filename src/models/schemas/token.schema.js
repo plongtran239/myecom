@@ -11,7 +11,7 @@ const tokenSchema = new Schema(
             require: true,
             ref: DOCUMENT_NAMES.USER
         },
-        refreshToken: {
+        refresh_token: {
             type: String,
             require: true
         }

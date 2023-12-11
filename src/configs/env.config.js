@@ -7,7 +7,9 @@ const envConfig = {
     mongodb_cloud_password: process.env.MONGODB_CLOUD_PASSWORD,
     mongodb_cloud_db_name: process.env.MONGODB_CLOUD_DB_NAME,
     jwt_access_token_secret: process.env.JWT_ACCESS_TOKEN_SECRET,
-    jwt_refresh_token_secret: process.env.JWT_REFRESH_TOKEN_SECRET
+    jwt_refresh_token_secret: process.env.JWT_REFRESH_TOKEN_SECRET,
+    jwt_access_token_expired_in: process.env.JWT_ACCESS_TOKEN_EXPIRED_IN,
+    jwt_refresh_token_expired_in: process.env.JWT_REFRESH_TOKEN_EXPIRED_IN
 }
 
 module.exports = envConfig

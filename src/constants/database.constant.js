@@ -15,7 +15,8 @@ const DOCUMENT_NAMES = {
     TOKEN: 'Token',
     CATEGORY: 'Category',
     PRODUCT: 'Product',
-    REVIEW: 'Review'
+    REVIEW: 'Review',
+    DISCOUNT: 'Discount'
 }
 
 const COLLECTION_NAMES = {
@@ -23,7 +24,8 @@ const COLLECTION_NAMES = {
     TOKENS: 'Tokens',
     CATEGORIES: 'Categories',
     PRODUCTS: 'Products',
-    REVIEWS: 'Reviews'
+    REVIEWS: 'Reviews',
+    DISCOUNTS: 'Discounts'
 }
 
 module.exports = {

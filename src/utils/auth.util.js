@@ -1,7 +1,12 @@
 'use strict'
 
 const JWT = require('jsonwebtoken')
-const { jwt_access_token_secret, jwt_refresh_token_secret } = require('../configs/env.config')
+const {
+    jwt_access_token_secret,
+    jwt_access_token_expired_in,
+    jwt_refresh_token_secret,
+    jwt_refresh_token_expired_in
+} = require('../configs/env.config')
 
 const createTokenPair = (payload) => {
     const accessToken = createAccessToken(payload)
@@ -11,13 +16,13 @@ const createTokenPair = (payload) => {
 
 const createAccessToken = (payload) => {
     return JWT.sign(payload, jwt_access_token_secret, {
-        expiresIn: '15m'
+        expiresIn: jwt_access_token_expired_in
     })
 }
 
 const createRefreshToken = (payload) => {
     return JWT.sign(payload, jwt_refresh_token_secret, {
-        expiresIn: '7d'
+        expiresIn: jwt_refresh_token_expired_in
     })
 }
 
