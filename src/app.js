@@ -21,5 +21,6 @@ require('./databases/init.mongodb')
 app.use('/', require('./routes'))
 
 // error handler
+app.use(require('./middlewares/error.middleware'))
 
 module.exports = app

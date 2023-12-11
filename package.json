@@ -25,6 +25,7 @@
         "helmet": "^7.1.0",
         "jsonwebtoken": "^9.0.2",
         "lodash": "^4.17.21",
+        "moment-timezone": "^0.5.43",
         "mongoose": "^8.0.0",
         "morgan": "^1.10.0"
     }

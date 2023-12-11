@@ -7,7 +7,7 @@ const tokenModel = require('../../models/schemas/token.schema')
 class TokenService {
     static createToken = async ({ userId, refreshToken }) => {
         const filter = { user: userId }
-        const update = { refreshToken }
+        const update = { refresh_token: refreshToken }
         const options = { upsert: true, new: true }
 
         await tokenModel.findOneAndUpdate(filter, update, options)
@@ -18,7 +18,7 @@ class TokenService {
     }
 
     static findByRefreshToken = async (refreshToken) => {
-        return await tokenModel.findOne({ refreshToken }).lean()
+        return await tokenModel.findOne({ refresh_token: refreshToken }).lean()
     }
 
     static deleteTokenByUserId = async (userId) => {

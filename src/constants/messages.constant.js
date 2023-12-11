@@ -63,6 +63,18 @@ const REVIEW_ERROR_MESSAGES = {
     REVIEW_NOT_FOUND: 'Review not found'
 }
 
+const DISCOUNT_MESSAGES = {
+    GET_ALL_DISCOUNTS_SUCCESS: 'Get all discounts successfully',
+    CREATE_DISCOUNT_SUCCESS: 'Create discount successfully',
+    UPDATE_DISCOUNT_SUCCESS: 'Update discount successfully',
+    DELETE_DISCOUNT_SUCCESS: 'Delete discount successfully'
+}
+
+const DISCOUNT_ERROR_MESSAGES = {
+    DISCOUNT_ALREADY_EXISTS: 'Discount already exists',
+    DISCOUNT_NOT_FOUND: 'Discount not found'
+}
+
 module.exports = {
     AUTH_MESSAGES,
     AUTH_ERROR_MESSAGES,
@@ -74,5 +86,7 @@ module.exports = {
     PRODUCT_MESSAGES,
     PRODUCT_ERROR_MESSAGES,
     REVIEW_MESSAGES,
-    REVIEW_ERROR_MESSAGES
+    REVIEW_ERROR_MESSAGES,
+    DISCOUNT_MESSAGES,
+    DISCOUNT_ERROR_MESSAGES
 }

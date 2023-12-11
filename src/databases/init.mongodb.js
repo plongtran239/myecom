@@ -27,7 +27,7 @@ class Database {
             })
             .catch((err) => {
                 console.log('Connecting MongoDB...')
-                console.error('Connected MongoDB failed')
+                console.error('Connected MongoDB failed. Error: ', err)
             })
     }
 
