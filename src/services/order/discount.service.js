@@ -1,3 +1,4 @@
+const { DISCOUNT_TYPE } = require('../../constants/enum.constant')
 const { DISCOUNT_ERROR_MESSAGES } = require('../../constants/messages.constant')
 
 const { BadRequestError } = require('../../models/error.response')
@@ -47,6 +48,16 @@ class DiscountService {
 
     static async findDiscountByCode(code) {
         return await discountModel.findOne({ code }).lean()
+    }
+
+    static applyDiscount(discount, subTotal) {
+        let discountValue = 0
+        if (discount.type === DISCOUNT_TYPE.PERCENTAGE) {
+            discountValue = subTotal * (discount.value / 100)
+        } else {
+            discountValue = discount.value
+        }
+        return discountValue
     }
 }
 

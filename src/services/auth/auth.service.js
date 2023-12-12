@@ -7,7 +7,6 @@ const TokenService = require('./token.service')
 const UserService = require('../user/user.service')
 
 // Constants
-const { ROLES } = require('../../constants/roles.constant')
 const { USER_ERROR_MESSAGES, AUTH_ERROR_MESSAGES } = require('../../constants/messages.constant')
 const envConfig = require('../../configs/env.config')
 
@@ -72,9 +71,9 @@ class AuthService {
         }
     }
 
-    static register = async ({ name, email, password }) => {
+    static register = async ({ name, email, password, role }) => {
         // Check email exists
-        const existedUser = await UserService.findByEmail(email)
+        const existedUser = await UserService.findUserByEmail(email)
         if (existedUser) {
             throw new BadRequestError(USER_ERROR_MESSAGES.EMAIL_ALREADY_EXISTS)
         }
@@ -85,7 +84,7 @@ class AuthService {
             name,
             email,
             password: hashedPassword,
-            roles: [ROLES.USER]
+            role
         })
 
         const tokens = await this.generateTokens({ userId: newUser._id, email })

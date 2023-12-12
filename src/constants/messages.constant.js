@@ -49,7 +49,9 @@ const PRODUCT_MESSAGES = {
 
 const PRODUCT_ERROR_MESSAGES = {
     PRODUCT_ALREADY_EXISTS: 'Product already exists',
-    PRODUCT_NOT_FOUND: 'Product not found'
+    PRODUCT_NOT_FOUND: 'Product not found',
+    PRODUCT_VARIANT_NOT_FOUND: 'Product variant not found',
+    PRODUCT_VARIANT_REQUIRED: 'Product variant is required'
 }
 
 const REVIEW_MESSAGES = {
@@ -75,6 +77,18 @@ const DISCOUNT_ERROR_MESSAGES = {
     DISCOUNT_NOT_FOUND: 'Discount not found'
 }
 
+const ORDER_MESSAGES = {
+    CREATE_ORDER_SUCCESS: 'Create order successfully',
+    GET_ALL_ORDERS_SUCCESS: 'Get all orders successfully',
+    GET_DETAIL_ORDER_SUCCESS: 'Get detail order successfully',
+    UPDATE_ORDER_SUCCESS: 'Update order successfully',
+    DELETE_ORDER_SUCCESS: 'Delete order successfully'
+}
+
+const ORDER_ERROR_MESSAGES = {
+    ORDER_NOT_FOUND: 'Order not found'
+}
+
 module.exports = {
     AUTH_MESSAGES,
     AUTH_ERROR_MESSAGES,
@@ -88,5 +102,7 @@ module.exports = {
     REVIEW_MESSAGES,
     REVIEW_ERROR_MESSAGES,
     DISCOUNT_MESSAGES,
-    DISCOUNT_ERROR_MESSAGES
+    DISCOUNT_ERROR_MESSAGES,
+    ORDER_MESSAGES,
+    ORDER_ERROR_MESSAGES
 }
