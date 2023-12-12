@@ -16,4 +16,6 @@ router.use(API_ROUTE + 'reviews', require('./review'))
 
 router.use(API_ROUTE + 'discounts', require('./discount'))
 
+router.use(API_ROUTE + 'orders', require('./order'))
+
 module.exports = router

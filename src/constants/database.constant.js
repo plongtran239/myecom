@@ -16,7 +16,8 @@ const DOCUMENT_NAMES = {
     CATEGORY: 'Category',
     PRODUCT: 'Product',
     REVIEW: 'Review',
-    DISCOUNT: 'Discount'
+    DISCOUNT: 'Discount',
+    ORDER: 'Order'
 }
 
 const COLLECTION_NAMES = {
@@ -25,7 +26,8 @@ const COLLECTION_NAMES = {
     CATEGORIES: 'Categories',
     PRODUCTS: 'Products',
     REVIEWS: 'Reviews',
-    DISCOUNTS: 'Discounts'
+    DISCOUNTS: 'Discounts',
+    ORDERS: 'Orders'
 }
 
 module.exports = {

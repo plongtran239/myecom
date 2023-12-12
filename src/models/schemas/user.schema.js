@@ -3,6 +3,10 @@
 const { Schema, model } = require('mongoose')
 
 const { COLLECTION_NAMES, DOCUMENT_NAMES } = require('../../constants/database.constant')
+const { USER_STATUS, ROLE } = require('../../constants/enum.constant')
+
+const userStatusEnum = Object.values(USER_STATUS).map((value) => value.toLowerCase())
+const roleEnum = Object.values(ROLE).map((value) => value.toLowerCase())
 
 const userSchema = new Schema(
     {
@@ -22,18 +26,31 @@ const userSchema = new Schema(
             type: String,
             require: true
         },
+        phone: {
+            type: String,
+            default: ''
+        },
+        address: {
+            type: String,
+            default: ''
+        },
+        avatar: {
+            type: String,
+            default: ''
+        },
         status: {
             type: String,
-            enum: ['active', 'inactive'],
-            default: 'inactive'
+            enum: userStatusEnum,
+            default: USER_STATUS.ACTIVE
         },
-        verify: {
+        verified: {
             type: Boolean,
             default: false
         },
-        roles: {
-            type: Array,
-            default: []
+        role: {
+            type: String,
+            enum: roleEnum,
+            default: ROLE.USER
         }
     },
     {

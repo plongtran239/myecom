@@ -3,6 +3,9 @@
 const { Schema, model } = require('mongoose')
 
 const { COLLECTION_NAMES, DOCUMENT_NAMES } = require('../../constants/database.constant')
+const { DISCOUNT_TYPE } = require('../../constants/enum.constant')
+
+const discountTypeEnum = Object.values(DISCOUNT_TYPE).map((value) => value.toLowerCase())
 
 const discountSchema = new Schema(
     {
@@ -13,7 +16,7 @@ const discountSchema = new Schema(
         },
         type: {
             type: String,
-            enum: ['fixed', 'percentage'],
+            enum: discountTypeEnum,
             required: true
         },
         value: {
