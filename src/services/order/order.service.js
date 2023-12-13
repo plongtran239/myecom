@@ -1,6 +1,5 @@
 //
 const {
-    DISCOUNT_ERROR_MESSAGES,
     USER_ERROR_MESSAGES,
     PRODUCT_ERROR_MESSAGES,
     ORDER_ERROR_MESSAGES
@@ -22,6 +21,7 @@ class OrderService {
             user: null,
             discount: null,
             order_lines: [],
+            discount_value: 0,
             status: ORDER_STATUS.BEING_PREPARED,
             total: 0
         }
@@ -58,22 +58,24 @@ class OrderService {
             }
         }
 
-        // Check discount
+        // Calculate sub total for order
         const sub_total = newOrder.order_lines.reduce((total, orderLine) => total + orderLine.sub_total, 0)
 
         // Apply discount
         if (order.discount) {
             const existedDiscount = await DiscountService.findDiscountByCode(order.discount)
-            if (!existedDiscount) {
-                throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_FOUND)
-            } else {
-                const discountValue = DiscountService.applyDiscount(existedDiscount, sub_total)
-                newOrder = {
-                    ...newOrder,
-                    discount_value: discountValue,
-                    discount: existedDiscount._id
-                }
+            const discountValue = DiscountService.applyDiscount(existedDiscount, sub_total)
+            newOrder = {
+                ...newOrder,
+                discount_value: discountValue,
+                discount: existedDiscount._id
             }
+
+            // Update uses count
+            await DiscountService.updateDiscount(existedDiscount._id, {
+                ...existedDiscount,
+                uses_count: existedDiscount.uses_count + 1
+            })
         }
 
         newOrder = {
