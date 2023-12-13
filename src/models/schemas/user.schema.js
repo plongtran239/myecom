@@ -14,7 +14,8 @@ const userSchema = new Schema(
             type: String,
             required: true,
             trim: true,
-            maxLegth: 150
+            maxLegth: 150,
+            minLength: 2
         },
         email: {
             type: String,
@@ -24,7 +25,9 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            require: true
+            require: true,
+            trim: true,
+            minLength: 8
         },
         phone: {
             type: String,

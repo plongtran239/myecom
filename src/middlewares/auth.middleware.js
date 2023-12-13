@@ -1,11 +1,12 @@
 'use strict'
 
-const { REQUEST_ERROR_MESSAGES } = require('../constants/messages.constant')
+const { REQUEST_ERROR_MESSAGES, AUTH_ERROR_MESSAGES } = require('../constants/messages.constant')
 
 const asyncHandler = require('../utils/async-handler.util')
 const { verifyToken } = require('../utils/auth.util')
 
 const envConfig = require('../configs/env.config')
+const { BadRequestError } = require('../models/error.response')
 
 const HEADER = {
     AUTHORIZATION: 'authorization'
@@ -25,6 +26,18 @@ const accessTokenValidator = asyncHandler(async (req, res, next) => {
     next()
 })
 
+const passwordValidator = asyncHandler(async (req, res, next) => {
+    const { password, confirmPassword } = req.body
+    if (password.length < 8) {
+        throw new BadRequestError(AUTH_ERROR_MESSAGES.PASSWORD_MIN_LENGTH)
+    }
+    if (password !== confirmPassword) {
+        throw new BadRequestError(AUTH_ERROR_MESSAGES.PASSWORD_NOT_MATCH)
+    }
+    next()
+})
+
 module.exports = {
-    accessTokenValidator
+    accessTokenValidator,
+    passwordValidator
 }

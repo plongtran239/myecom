@@ -5,7 +5,9 @@ const AUTH_MESSAGES = {
 }
 
 const AUTH_ERROR_MESSAGES = {
-    TOKEN_NOT_FOUND: 'Token not found'
+    TOKEN_NOT_FOUND: 'Token not found',
+    PASSWORD_NOT_MATCH: 'Password and confirm password not match',
+    PASSWORD_MIN_LENGTH: 'Password must be at least 8 characters'
 }
 
 const USER_MESSAGES = {

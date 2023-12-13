@@ -17,6 +17,9 @@ const { BadRequestError, NotFoundError, UnauthorizedError } = require('../../mod
 // Utils
 const { createTokenPair, verifyToken } = require('../../utils/auth.util')
 const { getInfoData } = require('../../utils/lodash.util')
+const { ROLE } = require('../../constants/enum.constant')
+
+const responseFields = ['_id', 'name', 'email', 'role', 'avatar']
 
 class AuthService {
     static refreshToken = async (refreshToken) => {
@@ -36,7 +39,7 @@ class AuthService {
         const tokens = await this.generateTokens({ userId, email })
         return {
             user: getInfoData({
-                fields: ['_id', 'name', 'email'],
+                fields: responseFields,
                 object: user
             }),
             tokens
@@ -64,14 +67,14 @@ class AuthService {
 
         return {
             user: getInfoData({
-                fields: ['_id', 'name', 'email'],
+                fields: responseFields,
                 object: user
             }),
             tokens
         }
     }
 
-    static register = async ({ name, email, password, role }) => {
+    static register = async ({ name, email, password, confirmPassword, role }) => {
         // Check email exists
         const existedUser = await UserService.findUserByEmail(email)
         if (existedUser) {
@@ -81,17 +84,17 @@ class AuthService {
         // Create new user
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = await userModel.create({
-            name,
+            name: name || email,
             email,
             password: hashedPassword,
-            role
+            role: role || ROLE.USER
         })
 
         const tokens = await this.generateTokens({ userId: newUser._id, email })
 
         return {
             user: getInfoData({
-                fields: ['_id', 'name', 'email'],
+                fields: responseFields,
                 object: newUser
             }),
             tokens

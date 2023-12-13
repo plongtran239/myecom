@@ -34,7 +34,7 @@ class UsersController {
 
     getProfile = async (req, res) => {
         const { userId } = req.decodedUser
-        const data = await UserService.findById(userId)
+        const data = await UserService.findUserById(userId)
         return res.status(OK.code).json(
             new SuccessResponse({
                 message: USER_MESSAGES.GET_PROFILE_SUCCESS,
