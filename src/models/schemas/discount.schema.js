@@ -27,18 +27,13 @@ const discountSchema = new Schema(
             type: Boolean,
             default: false
         },
-        max_use: {
+        max_uses: {
             type: Number,
             default: 0
         },
         uses_count: {
             type: Number,
             default: 0
-        },
-        users_uses: {
-            type: [Schema.Types.ObjectId],
-            ref: DOCUMENT_NAMES.USER,
-            default: []
         },
         min_order_value: {
             type: Number,

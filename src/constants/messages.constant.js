@@ -76,7 +76,9 @@ const DISCOUNT_MESSAGES = {
 
 const DISCOUNT_ERROR_MESSAGES = {
     DISCOUNT_ALREADY_EXISTS: 'Discount already exists',
-    DISCOUNT_NOT_FOUND: 'Discount not found'
+    DISCOUNT_NOT_FOUND: 'Discount not found',
+    DISCOUNT_INACTIVE: 'Discount is inactive',
+    DISCOUNT_MAX_USES: 'Discount has reached maximum uses'
 }
 
 const ORDER_MESSAGES = {
