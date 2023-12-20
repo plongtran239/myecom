@@ -30,9 +30,17 @@ const productSchema = new Schema(
             ref: DOCUMENT_NAMES.CATEGORY,
             required: true
         },
+        normalPrice: {
+            type: Number,
+            required: true
+        },
         price: {
             type: Number,
             required: true
+        },
+        rating: {
+            type: Number,
+            default: 0
         },
         quantity: {
             type: Number,

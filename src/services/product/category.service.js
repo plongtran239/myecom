@@ -5,12 +5,12 @@ const { BadRequestError } = require('../../models/error.response')
 const categoryModel = require('../../models/schemas/category.schema')
 
 class CategoryService {
-    static createCategory = async ({ name }) => {
+    static createCategory = async ({ name, image }) => {
         const existedCategory = await this.findCategoryByName(name)
         if (existedCategory) {
             throw new BadRequestError(CATEGORY_ERROR_MESSAGES.CATEGORY_ALREADY_EXISTS)
         }
-        return await categoryModel.create({ name })
+        return await categoryModel.create({ name, image })
     }
 
     static getAllCategories = async () => {

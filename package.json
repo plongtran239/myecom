@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon server.js",
-        "dev:pro": "NODE_ENV=pro nodemon server.js",
+        "dev:prod": "NODE_ENV=pro nodemon server.js",
         "prettier": "prettier --check .",
         "prettier:fix": "prettier --write ."
     },

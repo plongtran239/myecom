@@ -11,6 +11,10 @@ const categorySchema = new Schema(
             required: true,
             trim: true,
             unique: true
+        },
+        image: {
+            type: String,
+            required: true
         }
     },
     {
