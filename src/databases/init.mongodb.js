@@ -39,5 +39,20 @@ class Database {
     }
 }
 
-const instanceMongoDB = Database.getInstance()
+class singletonDatabase {
+    constructor() {
+        if (!singletonDatabase.instance) {
+            singletonDatabase.instance = new Database()
+        }
+    }
+
+    getInstance() {
+        return singletonDatabase.instance
+    }
+}
+
+const instanceSingleton = new singletonDatabase()
+const instanceMongoDB = instanceSingleton.getInstance()
+
+// const instanceMongoDB = Database.getInstance()
 module.exports = instanceMongoDB

@@ -6,11 +6,11 @@ const productController = require('../../controllers/product.controller')
 const { accessTokenValidator } = require('../../middlewares/auth.middleware')
 const asyncHandler = require('../../utils/async-handler.util')
 
+router.get('/', asyncHandler(productController.getAllProducts))
+
 router.use(accessTokenValidator)
 
 router.post('/', asyncHandler(productController.createProduct))
-
-router.get('/', asyncHandler(productController.getAllProducts))
 
 router.get('/:id', asyncHandler(productController.getDetailProduct))
 

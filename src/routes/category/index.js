@@ -6,11 +6,11 @@ const categoryController = require('../../controllers/category.controller')
 const { accessTokenValidator } = require('../../middlewares/auth.middleware')
 const asyncHandler = require('../../utils/async-handler.util')
 
+router.get('/', asyncHandler(categoryController.getAllCategories))
+
 router.use(accessTokenValidator)
 
 router.post('/', asyncHandler(categoryController.createCategory))
-
-router.get('/', asyncHandler(categoryController.getAllCategories))
 
 router.put('/:id', asyncHandler(categoryController.updateCategory))
 

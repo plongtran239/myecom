@@ -10,11 +10,12 @@ router.post('/register', passwordValidator, asyncHandler(authController.register
 // Sign in
 router.post('/login', asyncHandler(authController.login))
 
-router.use(accessTokenValidator)
-// Sign out
-router.post('/logout', asyncHandler(authController.logout))
-
 // Refresh token
 router.post('/refresh-token', asyncHandler(authController.refreshToken))
+
+router.use(accessTokenValidator)
+
+// Sign out
+router.post('/logout', asyncHandler(authController.logout))
 
 module.exports = router

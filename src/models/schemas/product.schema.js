@@ -55,8 +55,8 @@ const productSchema = new Schema(
             ref: DOCUMENT_NAMES.REVIEW
         },
         variants: {
-            type: Array,
-            default: []
+            type: Object,
+            default: {}
         }
     },
     {
