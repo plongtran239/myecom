@@ -22,12 +22,12 @@ const orderSchema = new Schema(
                     type: Schema.Types.ObjectId,
                     ref: DOCUMENT_NAMES.PRODUCT
                 },
-                variant: {
-                    type: String,
-                    default: null
+                variants: {
+                    type: Array,
+                    default: []
                 },
                 quantity: {
-                    types: Number
+                    type: Number
                 },
                 sub_total: {
                     type: Number
@@ -50,6 +50,10 @@ const orderSchema = new Schema(
         total: {
             type: Number,
             default: 0
+        },
+        delivery_address: {
+            type: String,
+            default: ''
         }
     },
     {

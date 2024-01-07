@@ -25,6 +25,19 @@ class DiscountController {
         )
     }
 
+    async applyDiscount(req, res) {
+        const { code } = req.params
+        const { order_value } = req.body
+
+        const data = await DiscountService.applyDiscount(code, order_value)
+        res.status(OK.code).json(
+            new SuccessResponse({
+                message: DISCOUNT_MESSAGES.APPLY_DISCOUNT_SUCCESS,
+                data
+            })
+        )
+    }
+
     async updateDiscount(req, res) {
         const { id } = req.params
         const data = await DiscountService.updateDiscount(id, req.body)
