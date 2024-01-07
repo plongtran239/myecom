@@ -12,6 +12,8 @@ router.post('/', asyncHandler(discountController.createDiscount))
 
 router.get('/', asyncHandler(discountController.getAllDiscounts))
 
+router.post('/:code', asyncHandler(discountController.applyDiscount))
+
 router.put('/:id', asyncHandler(discountController.updateDiscount))
 
 router.delete('/:id', asyncHandler(discountController.deleteDiscount))

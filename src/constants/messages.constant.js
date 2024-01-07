@@ -69,6 +69,7 @@ const REVIEW_ERROR_MESSAGES = {
 
 const DISCOUNT_MESSAGES = {
     GET_ALL_DISCOUNTS_SUCCESS: 'Get all discounts successfully',
+    APPLY_DISCOUNT_SUCCESS: 'Apply discount successfully',
     CREATE_DISCOUNT_SUCCESS: 'Create discount successfully',
     UPDATE_DISCOUNT_SUCCESS: 'Update discount successfully',
     DELETE_DISCOUNT_SUCCESS: 'Delete discount successfully'
@@ -78,7 +79,11 @@ const DISCOUNT_ERROR_MESSAGES = {
     DISCOUNT_ALREADY_EXISTS: 'Discount already exists',
     DISCOUNT_NOT_FOUND: 'Discount not found',
     DISCOUNT_INACTIVE: 'Discount is inactive',
-    DISCOUNT_MAX_USES: 'Discount has reached maximum uses'
+    DISCOUNT_MAX_USES: 'Discount has reached maximum uses',
+    DISCOUNT_NOT_STARTED: 'Discount not started',
+    DISCOUNT_EXPIRED: 'Discount expired',
+    DISCOUNT_NOT_ACTIVE: 'Discount not active',
+    DISCOUNT_MIN_ORDER_VALUE: 'Order value is not enough to apply discount'
 }
 
 const ORDER_MESSAGES = {

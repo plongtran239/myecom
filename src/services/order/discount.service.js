@@ -1,7 +1,7 @@
 const { DISCOUNT_TYPE } = require('../../constants/enum.constant')
 const { DISCOUNT_ERROR_MESSAGES } = require('../../constants/messages.constant')
 
-const { BadRequestError } = require('../../models/error.response')
+const { BadRequestError, NotFoundError } = require('../../models/error.response')
 const discountModel = require('../../models/schemas/discount.schema')
 
 const moment = require('moment-timezone')
@@ -37,6 +37,35 @@ class DiscountService {
         return await discount.save()
     }
 
+    static async applyDiscount(code, orderValue) {
+        const discount = await discountModel.findOne({ code }).lean()
+        if (!discount) {
+            throw new NotFoundError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_FOUND)
+        }
+
+        if (discount.start_date > Date.now()) {
+            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_STARTED)
+        }
+
+        if (discount.end_date < Date.now()) {
+            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_EXPIRED)
+        }
+
+        if (discount.is_active === false) {
+            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_ACTIVE)
+        }
+
+        if (discount.uses_count === discount.max_uses) {
+            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_MAX_USES)
+        }
+
+        if (discount.min_order_value > orderValue) {
+            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_MIN_ORDER_VALUE)
+        }
+
+        return discount
+    }
+
     static async deleteDiscount(id) {
         const discount = await discountModel.findById(id)
         if (!discount) {
@@ -50,7 +79,7 @@ class DiscountService {
         return await discountModel.findOne({ code }).lean()
     }
 
-    static applyDiscount(discount, subTotal) {
+    static calculateDiscount(discount, subTotal) {
         let discountValue = 0
         if (discount.type === DISCOUNT_TYPE.PERCENTAGE) {
             discountValue = subTotal * (discount.value / 100)

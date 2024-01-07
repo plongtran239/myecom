@@ -23,7 +23,8 @@ class OrderService {
             order_lines: [],
             discount_value: 0,
             status: ORDER_STATUS.BEING_PREPARED,
-            total: 0
+            total: 0,
+            delivery_address: order.delivery_address
         }
 
         // Check user
@@ -39,7 +40,7 @@ class OrderService {
             if (!product) {
                 throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_NOT_FOUND)
             } else {
-                this.checkVariant(product, orderLine.variant)
+                this.checkVariant(product, orderLine.variants)
                 // Calculate sub total for each order line
                 sub_total = product.price * orderLine.quantity
                 // Add order line to order
@@ -49,7 +50,7 @@ class OrderService {
                         ...newOrder.order_lines,
                         {
                             product: product._id,
-                            variant: orderLine.variant,
+                            variants: orderLine.variants,
                             quantity: orderLine.quantity,
                             sub_total
                         }
@@ -64,7 +65,7 @@ class OrderService {
         // Apply discount
         if (order.discount) {
             const existedDiscount = await DiscountService.findDiscountByCode(order.discount)
-            const discountValue = DiscountService.applyDiscount(existedDiscount, sub_total)
+            const discountValue = DiscountService.calculateDiscount(existedDiscount, sub_total)
             newOrder = {
                 ...newOrder,
                 discount_value: discountValue,
@@ -116,13 +117,24 @@ class OrderService {
         return await orderModel.findByIdAndDelete(id)
     }
 
-    static checkVariant = (product, orderVariant) => {
-        if (orderVariant) {
-            const existedVariant = product.variants.find((variant) => variant === orderVariant)
-            if (!existedVariant) {
+    static checkVariant = (product, orderVariants) => {
+        if (orderVariants.length > 0) {
+            const productVariants = Object.values(product.variants)
+
+            // Check if order variants length is equal to product variants length
+            if (orderVariants.length !== productVariants.length) {
+                throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
+            }
+
+            // Check if order variants are in product variants
+            const isOrderVariantsInProductVariants = orderVariants.every((orderVariant, index) => {
+                return productVariants[index].includes(orderVariant)
+            })
+
+            if (!isOrderVariantsInProductVariants) {
                 throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_NOT_FOUND)
             }
-        } else if (product.variants.length > 0) {
+        } else if (Object.keys(product.variants).length > 0) {
             throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
         }
     }
