@@ -15,11 +15,26 @@ const DISCOUNT_TYPE = {
 }
 
 const ORDER_STATUS = {
-    BEING_PREPARED: 'being prepared',
-    TO_SHIP: 'to ship',
-    TO_RECEIVE: 'to receive',
-    COMPLETED: 'completed',
-    CANCELLED: 'cancelled'
+    BEING_PREPARED: {
+        value: 0,
+        name: 'being prepared'
+    },
+    TO_SHIP: {
+        value: 1,
+        name: 'to ship'
+    },
+    TO_RECEIVE: {
+        value: 2,
+        name: 'to receive'
+    },
+    COMPLETED: {
+        value: 3,
+        name: 'completed'
+    },
+    CANCELLED: {
+        value: 4,
+        name: 'cancelled'
+    }
 }
 
 module.exports = {

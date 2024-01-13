@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose')
 const { COLLECTION_NAMES, DOCUMENT_NAMES } = require('../../constants/database.constant')
 const { ORDER_STATUS } = require('../../constants/enum.constant')
 
-const orderStatusEnum = Object.values(ORDER_STATUS).map((value) => value.toLowerCase())
+const orderStatusEnum = Object.values(ORDER_STATUS).map((value) => value.value)
 
 const orderSchema = new Schema(
     {
@@ -35,9 +35,9 @@ const orderSchema = new Schema(
             }
         ],
         status: {
-            type: String,
+            type: Number,
             enum: orderStatusEnum,
-            default: ORDER_STATUS.BEING_PREPARED
+            default: ORDER_STATUS.BEING_PREPARED.value
         },
         sub_total: {
             type: Number,

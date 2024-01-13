@@ -14,6 +14,9 @@ router.get('/', asyncHandler(usersController.getAllUsers))
 // Get profile
 router.get('/profile', asyncHandler(usersController.getProfile))
 
+// Get my orders
+router.get('/orders', asyncHandler(usersController.getMyOrders))
+
 // Get detail user
 router.get('/:id', asyncHandler(usersController.getDetailUser))
 

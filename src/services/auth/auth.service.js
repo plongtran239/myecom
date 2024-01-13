@@ -22,6 +22,33 @@ const { ROLE } = require('../../constants/enum.constant')
 const responseFields = ['_id', 'name', 'email', 'role', 'avatar']
 
 class AuthService {
+    static changePassword = async (userId, { oldPassword, newPassword, confirmPassword }) => {
+        console.log({ userId, oldPassword, newPassword, confirmPassword })
+
+        if (newPassword !== confirmPassword) {
+            throw new BadRequestError(AUTH_ERROR_MESSAGES.PASSWORD_NOT_MATCH)
+        }
+        if (newPassword.length < 8) {
+            throw new BadRequestError(AUTH_ERROR_MESSAGES.PASSWORD_MIN_LENGTH)
+        }
+
+        const user = await UserService.findUserById(userId)
+
+        if (!user) {
+            throw new NotFoundError(USER_ERROR_MESSAGES.USER_NOT_FOUND)
+        }
+
+        const isMatch = await bcrypt.compare(oldPassword, user.password)
+        if (!isMatch) {
+            throw new UnauthorizedError(AUTH_ERROR_MESSAGES.OLD_PASSWORD_INCORRECT)
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
+        await userModel.findByIdAndUpdate(userId, {
+            password: hashedPassword
+        })
+    }
+
     static refreshToken = async (refreshToken) => {
         const token = await TokenService.findByRefreshToken(refreshToken)
         if (!token) {

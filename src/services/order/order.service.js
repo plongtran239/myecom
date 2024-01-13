@@ -22,7 +22,7 @@ class OrderService {
             discount: null,
             order_lines: [],
             discount_value: 0,
-            status: ORDER_STATUS.BEING_PREPARED,
+            status: ORDER_STATUS.BEING_PREPARED.value,
             total: 0,
             delivery_address: order.delivery_address
         }
@@ -93,18 +93,33 @@ class OrderService {
         return await orderModel.find().lean()
     }
 
+    static async getOrdersByUserId(userId, status) {
+        return await orderModel
+            .find({ user: userId })
+            .populate({
+                path: 'order_lines.product',
+                select: '_id name price images seller',
+                populate: {
+                    path: 'seller',
+                    select: '_id name avatar'
+                }
+            })
+            .where(status ? { status } : {})
+            .lean()
+    }
+
     static async getOrderById(id) {
         return await orderModel.findById(id).lean()
     }
 
-    static async updateOrder(id, data) {
+    static async updateOrder(id, status) {
         const existedOrder = await orderModel.findById(id).lean()
         if (!existedOrder) {
             throw new BadRequestError(ORDER_ERROR_MESSAGES.ORDER_NOT_FOUND)
         }
         const newOrder = {
             ...existedOrder,
-            status: data.status
+            status
         }
         return await orderModel.findByIdAndUpdate(id, newOrder, { new: true })
     }

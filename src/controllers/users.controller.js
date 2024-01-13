@@ -9,6 +9,7 @@ const { USER_MESSAGES } = require('../constants/messages.constant')
 
 // Services
 const UserService = require('../services/user/user.service')
+const OrderService = require('../services/order/order.service')
 
 class UsersController {
     getAllUsers = async (req, res) => {
@@ -21,9 +22,21 @@ class UsersController {
         )
     }
 
+    getMyOrders = async (req, res) => {
+        const { status } = req.query
+        const { userId } = req.decodedUser
+        const data = await OrderService.getOrdersByUserId(userId, status)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: USER_MESSAGES.GET_MY_ORDERS_SUCCESS,
+                data
+            })
+        )
+    }
+
     getDetailUser = async (req, res) => {
         const { id } = req.params
-        const data = await UserService.findById(id)
+        const data = await UserService.findUserById(id)
         return res.status(OK.code).json(
             new SuccessResponse({
                 message: USER_MESSAGES.GET_DETAIL_USER_SUCCESS,

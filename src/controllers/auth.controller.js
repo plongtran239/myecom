@@ -50,6 +50,17 @@ class AuthController {
             })
         )
     }
+
+    changePassword = async (req, res) => {
+        const { userId } = req.decodedUser
+        const data = await AuthService.changePassword(userId, req.body)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: AUTH_MESSAGES.RESET_PASSWORD_SUCCESS
+                // data
+            })
+        )
+    }
 }
 
 module.exports = new AuthController()

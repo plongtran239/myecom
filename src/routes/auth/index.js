@@ -15,6 +15,8 @@ router.post('/refresh-token', asyncHandler(authController.refreshToken))
 
 router.use(accessTokenValidator)
 
+router.post('/change-password', asyncHandler(authController.changePassword))
+
 // Sign out
 router.post('/logout', asyncHandler(authController.logout))
 
