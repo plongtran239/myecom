@@ -47,7 +47,7 @@ class OrderController {
     updateOrder = async (req, res) => {
         const { id } = req.params
 
-        const data = await OrderService.updateOrder(id, req.body)
+        const data = await OrderService.updateOrder(id, req.body.status)
 
         return res.status(OK.code).json(
             new SuccessResponse({

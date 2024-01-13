@@ -1,13 +1,15 @@
 const AUTH_MESSAGES = {
     SIGNUP_SUCCESS: 'Signup successfully',
     LOGIN_SUCCESS: 'Login successfully',
-    LOGOUT_SUCCESS: 'Logout successfully'
+    LOGOUT_SUCCESS: 'Logout successfully',
+    RESET_PASSWORD_SUCCESS: 'Reset password successfully'
 }
 
 const AUTH_ERROR_MESSAGES = {
     TOKEN_NOT_FOUND: 'Token not found',
     PASSWORD_NOT_MATCH: 'Password and confirm password not match',
-    PASSWORD_MIN_LENGTH: 'Password must be at least 8 characters'
+    PASSWORD_MIN_LENGTH: 'Password must be at least 8 characters',
+    OLD_PASSWORD_INCORRECT: 'Old password is incorrect'
 }
 
 const USER_MESSAGES = {
@@ -15,7 +17,8 @@ const USER_MESSAGES = {
     GET_DETAIL_USER_SUCCESS: 'Get detail user successfully',
     GET_PROFILE_SUCCESS: 'Get profile successfully',
     UPDATE_USER_SUCCESS: 'Update user successfully',
-    DELETE_USER_SUCCESS: 'Delete user successfully'
+    DELETE_USER_SUCCESS: 'Delete user successfully',
+    GET_MY_ORDERS_SUCCESS: 'Get my orders successfully'
 }
 
 const USER_ERROR_MESSAGES = {
