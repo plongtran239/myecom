@@ -93,6 +93,28 @@ class OrderService {
         return await orderModel.find().lean()
     }
 
+    static async getShopOrders(shopId, status) {
+        const products = await ProductService.getShopProducts(shopId)
+        const productIds = products.map((product) => product._id)
+        return await orderModel
+            .find()
+            .populate({
+                path: 'user',
+                select: '_id phone name'
+            })
+            .populate({
+                path: 'order_lines.product',
+                select: '_id name price images seller category',
+                populate: {
+                    path: 'category',
+                    select: '_id name'
+                }
+            })
+            .where(status ? { status } : {})
+            .where({ 'order_lines.product': { $in: productIds } })
+            .lean()
+    }
+
     static async getOrdersByUserId(userId, status) {
         return await orderModel
             .find({ user: userId })

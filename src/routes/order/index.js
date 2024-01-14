@@ -11,6 +11,8 @@ router.use(accessTokenValidator)
 
 router.get('/', asyncHandler(orderController.getAllOrders))
 
+router.get('/shop', asyncHandler(orderController.getShopOrders))
+
 router.get('/:id', asyncHandler(orderController.getOrderById))
 
 router.post('/', discountValidator, asyncHandler(orderController.createOrder))

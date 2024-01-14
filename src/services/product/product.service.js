@@ -56,17 +56,21 @@ class ProductService {
             .lean()
     }
 
+    static getShopProducts = async (sellerId) => {
+        return await productModel
+            .find({ seller: sellerId })
+            .populate({
+                path: 'category',
+                select: '_id name'
+            })
+            .populate({
+                path: 'seller',
+                select: '_id name'
+            })
+            .lean()
+    }
+
     static getDetailProduct = async (id) => {
-        // const product = await this.findProductById(id)
-        // return {
-        //     ...product,
-        //     relatedProducts: await productModel
-        //         .find()
-        //         .populate({ path: 'seller', select: '_id name email' })
-        //         .where('category')
-        //         .equals(product.category._id)
-        //         .nor([{ _id: product._id }])
-        // }
         return await this.findProductById(id)
     }
 

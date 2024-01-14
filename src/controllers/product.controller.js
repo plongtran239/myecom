@@ -30,6 +30,17 @@ class ProductController {
         )
     }
 
+    getShopProducts = async (req, res) => {
+        const { userId } = req.decodedUser
+        const data = await ProductService.getShopProducts(userId)
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: PRODUCT_MESSAGES.GET_MY_PRODUCTS_SUCCESS,
+                data
+            })
+        )
+    }
+
     getDetailProduct = async (req, res) => {
         const { id } = req.params
         const data = await ProductService.getDetailProduct(id)

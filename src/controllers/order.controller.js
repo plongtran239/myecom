@@ -30,6 +30,20 @@ class OrderController {
         )
     }
 
+    getShopOrders = async (req, res) => {
+        const { userId } = req.decodedUser
+        const { status } = req.query
+
+        const data = await OrderService.getShopOrders(userId, status)
+
+        return res.status(OK.code).json(
+            new SuccessResponse({
+                message: ORDER_MESSAGES.GET_SHOP_ORDERS_SUCCESS,
+                data
+            })
+        )
+    }
+
     getOrderById = async (req, res) => {
         const { orderId } = req.params
 

@@ -10,6 +10,8 @@ router.get('/', asyncHandler(productController.getAllProducts))
 
 router.use(accessTokenValidator)
 
+router.get('/shop', asyncHandler(productController.getShopProducts))
+
 router.post('/', asyncHandler(productController.createProduct))
 
 router.get('/:id', asyncHandler(productController.getDetailProduct))

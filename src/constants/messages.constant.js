@@ -46,6 +46,7 @@ const CATEGORY_ERROR_MESSAGES = {
 
 const PRODUCT_MESSAGES = {
     GET_ALL_PRODUCTS_SUCCESS: 'Get all products successfully',
+    GET_MY_PRODUCTS_SUCCESS: 'Get my products successfully',
     GET_DETAIL_PRODUCT_SUCCESS: 'Get detail product successfully',
     CREATE_PRODUCT_SUCCESS: 'Create product successfully',
     UPDATE_PRODUCT_SUCCESS: 'Update product successfully',
@@ -92,6 +93,7 @@ const DISCOUNT_ERROR_MESSAGES = {
 const ORDER_MESSAGES = {
     CREATE_ORDER_SUCCESS: 'Create order successfully',
     GET_ALL_ORDERS_SUCCESS: 'Get all orders successfully',
+    GET_SHOP_ORDERS_SUCCESS: 'Get shop orders successfully',
     GET_DETAIL_ORDER_SUCCESS: 'Get detail order successfully',
     UPDATE_ORDER_SUCCESS: 'Update order successfully',
     DELETE_ORDER_SUCCESS: 'Delete order successfully'
