@@ -22,10 +22,10 @@ const orderSchema = new Schema(
                     type: Schema.Types.ObjectId,
                     ref: DOCUMENT_NAMES.PRODUCT
                 },
-                variants: {
-                    type: Array,
-                    default: []
-                },
+                // variants: {
+                //     type: Array,
+                //     default: []
+                // },
                 quantity: {
                     type: Number
                 },

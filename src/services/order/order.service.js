@@ -40,7 +40,6 @@ class OrderService {
             if (!product) {
                 throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_NOT_FOUND)
             } else {
-                this.checkVariant(product, orderLine.variants)
                 // Calculate sub total for each order line
                 sub_total = product.price * orderLine.quantity
                 // Add order line to order
@@ -50,7 +49,6 @@ class OrderService {
                         ...newOrder.order_lines,
                         {
                             product: product._id,
-                            variants: orderLine.variants,
                             quantity: orderLine.quantity,
                             sub_total
                         }
