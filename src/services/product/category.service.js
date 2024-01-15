@@ -14,7 +14,26 @@ class CategoryService {
     }
 
     static getAllCategories = async () => {
-        return await categoryModel.find().lean()
+        const categories = await categoryModel.find().lean()
+
+        const aggregateCategories = await categoryModel.aggregate([
+            {
+                $lookup: {
+                    from: 'Products',
+                    localField: '_id',
+                    foreignField: 'category',
+                    as: 'results'
+                }
+            }
+        ])
+
+        return aggregateCategories.map((category, index) => {
+            const numberOfProducts = category.results.length
+            return {
+                ...categories[index],
+                numberOfProducts
+            }
+        })
     }
 
     static updateCategory = async (id, data) => {
