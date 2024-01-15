@@ -71,7 +71,19 @@ class ProductService {
     }
 
     static getDetailProduct = async (id) => {
-        return await this.findProductById(id)
+        const product = await productModel
+            .findById(id)
+            .populate({ path: 'category', select: '_id name' })
+            .populate({ path: 'seller', select: '_id name email' })
+            .lean()
+        const relatedProducts = await productModel
+            .find({ category: product.category })
+            .and({ _id: { $ne: id } })
+            .lean()
+        return {
+            ...product,
+            relatedProducts
+        }
     }
 
     static updateProduct = async (id, productRequest) => {
