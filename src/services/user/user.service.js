@@ -23,7 +23,10 @@ class UserService {
             throw new BadRequestError(USER_ERROR_MESSAGES.USER_NOT_FOUND)
         }
         Object.assign(user, data)
-        await user.save()
+        if (user.phone !== '' && user.address !== '' && user.email !== '' && user.name !== '') {
+            user.verified = true
+            await user.save()
+        }
     }
 
     static findUserById = async (id) => {
@@ -42,6 +45,26 @@ class UserService {
         await userModel.findByIdAndDelete(id)
         await tokenModel.deleteMany({ user: id })
         await productModel.deleteMany({ user: id })
+    }
+
+    static findUserByAccount = async (account) => {
+        const user = await userModel
+            .findOne({
+                $or: [
+                    {
+                        name: account
+                    },
+                    {
+                        phone: account
+                    },
+                    {
+                        email: account
+                    }
+                ]
+            })
+            .lean()
+
+        return user
     }
 }
 

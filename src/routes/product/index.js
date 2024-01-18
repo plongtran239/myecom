@@ -8,13 +8,13 @@ const asyncHandler = require('../../utils/async-handler.util')
 
 router.get('/', asyncHandler(productController.getAllProducts))
 
-router.use(accessTokenValidator)
-
-router.get('/shop', asyncHandler(productController.getShopProducts))
-
-router.post('/', asyncHandler(productController.createProduct))
+router.get('/shop', accessTokenValidator, asyncHandler(productController.getShopProducts))
 
 router.get('/:id', asyncHandler(productController.getDetailProduct))
+
+router.use(accessTokenValidator)
+
+router.post('/', asyncHandler(productController.createProduct))
 
 router.put('/:id', asyncHandler(productController.updateProduct))
 

@@ -77,11 +77,12 @@ class AuthService {
         return await TokenService.deleteTokenByUserId(userId)
     }
 
-    static login = async ({ email, password }) => {
-        const user = await UserService.findUserByEmail(email)
+    static login = async ({ account, password }) => {
+        const user = await UserService.findUserByAccount(account)
         if (!user) {
-            throw new NotFoundError(USER_ERROR_MESSAGES.EMAIL_NOT_FOUND)
+            throw new NotFoundError(USER_ERROR_MESSAGES.ACCOUNT_NOT_FOUND)
         }
+
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) {
             throw new UnauthorizedError(USER_ERROR_MESSAGES.PASSWORD_INCORRECT)
@@ -89,7 +90,7 @@ class AuthService {
 
         const tokens = await this.generateTokens({
             userId: user._id,
-            email
+            email: user.email
         })
 
         return {
