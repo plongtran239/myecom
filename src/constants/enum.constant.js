@@ -1,17 +1,38 @@
 const USER_STATUS = {
-    ACTIVE: 'active',
-    INACTIVE: 'inactive'
+    INACTIVE: {
+        value: 0,
+        name: 'inactive'
+    },
+    ACTIVE: {
+        value: 1,
+        name: 'active'
+    }
 }
 
 const ROLE = {
-    ADMIN: 'admin',
-    SELLER: 'seller',
-    USER: 'user'
+    ADMIN: {
+        value: 0,
+        name: 'admin'
+    },
+    SELLER: {
+        value: 1,
+        name: 'seller'
+    },
+    USER: {
+        value: 2,
+        name: 'user'
+    }
 }
 
 const DISCOUNT_TYPE = {
-    FIXED: 'fixed',
-    PERCENTAGE: 'percentage'
+    FIXED: {
+        value: 0,
+        name: 'fixed'
+    },
+    PERCENTAGE: {
+        value: 1,
+        name: 'percentage'
+    }
 }
 
 const ORDER_STATUS = {

@@ -56,8 +56,8 @@ class AuthController {
         const data = await AuthService.changePassword(userId, req.body)
         return res.status(OK.code).json(
             new SuccessResponse({
-                message: AUTH_MESSAGES.RESET_PASSWORD_SUCCESS
-                // data
+                message: AUTH_MESSAGES.RESET_PASSWORD_SUCCESS,
+                data
             })
         )
     }

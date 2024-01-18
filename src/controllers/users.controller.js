@@ -13,7 +13,9 @@ const OrderService = require('../services/order/order.service')
 
 class UsersController {
     getAllUsers = async (req, res) => {
-        const data = await UserService.getAllUsers()
+        const { role } = req.query
+
+        const data = await UserService.getAllUsers(role)
         return res.status(OK.code).json(
             new SuccessResponse({
                 message: USER_MESSAGES.GET_ALL_USERS_SUCCESS,

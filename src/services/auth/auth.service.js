@@ -114,7 +114,7 @@ class AuthService {
             name: name || email,
             email,
             password: hashedPassword,
-            role: role || ROLE.USER
+            role: role || ROLE.USER.value
         })
 
         const tokens = await this.generateTokens({ userId: newUser._id, email })

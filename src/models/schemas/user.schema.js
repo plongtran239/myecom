@@ -5,8 +5,8 @@ const { Schema, model } = require('mongoose')
 const { COLLECTION_NAMES, DOCUMENT_NAMES } = require('../../constants/database.constant')
 const { USER_STATUS, ROLE } = require('../../constants/enum.constant')
 
-const userStatusEnum = Object.values(USER_STATUS).map((value) => value.toLowerCase())
-const roleEnum = Object.values(ROLE).map((value) => value.toLowerCase())
+const userStatusEnum = Object.values(USER_STATUS).map((value) => value.value)
+const roleEnum = Object.values(ROLE).map((value) => value.value)
 
 const userSchema = new Schema(
     {
@@ -42,18 +42,18 @@ const userSchema = new Schema(
             default: ''
         },
         status: {
-            type: String,
+            type: Number,
             enum: userStatusEnum,
-            default: USER_STATUS.ACTIVE
+            default: USER_STATUS.ACTIVE.value
         },
         verified: {
             type: Boolean,
             default: false
         },
         role: {
-            type: String,
+            type: Number,
             enum: roleEnum,
-            default: ROLE.USER
+            default: ROLE.USER.value
         }
     },
     {

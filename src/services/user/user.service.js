@@ -10,8 +10,11 @@ const tokenModel = require('../../models/schemas/token.schema')
 const productModel = require('../../models/schemas/product.schema')
 
 class UserService {
-    static getAllUsers = async () => {
-        return await userModel.find().lean()
+    static getAllUsers = async (role) => {
+        return await userModel
+            .find()
+            .where(role ? { role } : {})
+            .lean()
     }
 
     static updateUser = async (id, data) => {
