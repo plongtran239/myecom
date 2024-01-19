@@ -38,13 +38,13 @@ const discountSchema = new Schema(
         min_order_value: {
             type: Number,
             default: 0
-        },
-        start_date: {
-            type: Date
-        },
-        end_date: {
-            type: Date
         }
+        // start_date: {
+        //     type: Date
+        // },
+        // end_date: {
+        //     type: Date
+        // }
     },
     {
         timestamps: true,

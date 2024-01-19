@@ -13,13 +13,13 @@ class DiscountService {
             throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_ALREADY_EXISTS)
         }
 
-        const startDate = moment(discount.start_date).tz('Asia/Ho_Chi_Minh').toDate()
-        const endDate = moment(discount.end_date).tz('Asia/Ho_Chi_Minh').toDate()
+        // const startDate = moment(discount.start_date).tz('Asia/Ho_Chi_Minh').toDate()
+        // const endDate = moment(discount.end_date).tz('Asia/Ho_Chi_Minh').toDate()
 
         return await discountModel.create({
-            ...discount,
-            start_date: startDate,
-            end_date: endDate
+            ...discount
+            // start_date: startDate,
+            // end_date: endDate
         })
     }
 

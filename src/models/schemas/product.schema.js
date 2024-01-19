@@ -53,11 +53,11 @@ const productSchema = new Schema(
         reviews: {
             type: [Schema.Types.ObjectId],
             ref: DOCUMENT_NAMES.REVIEW
-        },
-        variants: {
-            type: Object,
-            default: {}
         }
+        // variants: {
+        //     type: Object,
+        //     default: {}
+        // }
     },
     {
         timestamps: true,
