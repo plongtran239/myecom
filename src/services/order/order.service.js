@@ -57,7 +57,7 @@ class OrderService {
                 await ProductService.updateProduct(product._id, {
                     ...product,
                     quantity: product.quantity - orderLine.quantity,
-                    sold_quantity: product.sold + orderLine.quantity
+                    sold_quantity: product.sold_quantity + orderLine.quantity
                 })
             }
         }
