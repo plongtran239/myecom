@@ -1,4 +1,3 @@
-//
 const {
     USER_ERROR_MESSAGES,
     PRODUCT_ERROR_MESSAGES,
@@ -93,8 +92,10 @@ class OrderService {
 
     static async getShopOrders(shopId, status) {
         const products = await ProductService.getShopProducts(shopId)
+
         const productIds = products.map((product) => product._id)
-        return await orderModel
+
+        const orders = await orderModel
             .find()
             .populate({
                 path: 'user',
@@ -111,6 +112,23 @@ class OrderService {
             .where(status ? { status } : {})
             .where({ 'order_lines.product': { $in: productIds } })
             .lean()
+
+        const shopOrders = orders.map((order) => {
+            const orderLines = order.order_lines.filter((order_line) => {
+                for (const product of products) {
+                    if (product._id.equals(order_line.product._id)) {
+                        return true
+                    }
+                }
+                return false
+            })
+            return {
+                ...order,
+                order_lines: orderLines
+            }
+        })
+
+        return shopOrders
     }
 
     static async getOrdersByUserId(userId, status) {
