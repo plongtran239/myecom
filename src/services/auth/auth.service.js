@@ -17,7 +17,7 @@ const { BadRequestError, NotFoundError, UnauthorizedError } = require('../../mod
 // Utils
 const { createTokenPair, verifyToken } = require('../../utils/auth.util')
 const { getInfoData } = require('../../utils/lodash.util')
-const { ROLE } = require('../../constants/enum.constant')
+const { ROLE, USER_STATUS } = require('../../constants/enum.constant')
 
 const responseFields = ['_id', 'name', 'email', 'role', 'avatar']
 
@@ -81,6 +81,10 @@ class AuthService {
         const user = await UserService.findUserByAccount(account)
         if (!user) {
             throw new NotFoundError(USER_ERROR_MESSAGES.ACCOUNT_NOT_FOUND)
+        }
+
+        if (user.status === USER_STATUS.INACTIVE.value) {
+            throw new UnauthorizedError(USER_ERROR_MESSAGES.ACCOUNT_INACTIVE)
         }
 
         const isMatch = await bcrypt.compare(password, user.password)

@@ -26,7 +26,8 @@ const USER_ERROR_MESSAGES = {
     ACCOUNT_NOT_FOUND: 'Account not found',
     EMAIL_NOT_FOUND: 'Email not found',
     PASSWORD_INCORRECT: 'Password is incorrect',
-    USER_NOT_FOUND: 'User not found'
+    USER_NOT_FOUND: 'User not found',
+    ACCOUNT_INACTIVE: 'Your account is not active'
 }
 
 const REQUEST_ERROR_MESSAGES = {
