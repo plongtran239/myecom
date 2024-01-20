@@ -31,14 +31,14 @@ const orderSchema = new Schema(
                 },
                 sub_total: {
                     type: Number
+                },
+                status: {
+                    type: Number,
+                    enum: orderStatusEnum,
+                    default: ORDER_STATUS.BEING_PREPARED.value
                 }
             }
         ],
-        status: {
-            type: Number,
-            enum: orderStatusEnum,
-            default: ORDER_STATUS.BEING_PREPARED.value
-        },
         sub_total: {
             type: Number,
             default: 0

@@ -21,7 +21,6 @@ class OrderService {
             discount: null,
             order_lines: [],
             discount_value: 0,
-            status: ORDER_STATUS.BEING_PREPARED.value,
             total: 0,
             delivery_address: order.delivery_address
         }
@@ -49,6 +48,7 @@ class OrderService {
                         {
                             product: product._id,
                             quantity: orderLine.quantity,
+                            status: ORDER_STATUS.BEING_PREPARED.value,
                             sub_total
                         }
                     ]
@@ -115,12 +115,11 @@ class OrderService {
                     select: '_id name'
                 }
             })
-            .where(status ? { status } : {})
             .where({ 'order_lines.product': { $in: productIds } })
             .lean()
 
         const shopOrders = orders.map((order) => {
-            const orderLines = order.order_lines.filter((order_line) => {
+            let orderLines = order.order_lines.filter((order_line) => {
                 for (const product of products) {
                     if (product._id.equals(order_line.product._id)) {
                         return true
@@ -128,6 +127,10 @@ class OrderService {
                 }
                 return false
             })
+            if (status) {
+                orderLines = orderLines.filter((orderLine) => orderLine.status.toString() === status)
+            }
+
             return {
                 ...order,
                 order_lines: orderLines
@@ -138,7 +141,7 @@ class OrderService {
     }
 
     static async getOrdersByUserId(userId, status) {
-        return await orderModel
+        const orders = await orderModel
             .find({ user: userId })
             .populate({
                 path: 'order_lines.product',
@@ -148,24 +151,64 @@ class OrderService {
                     select: '_id name avatar'
                 }
             })
-            .where(status ? { status } : {})
             .lean()
+
+        const userOrders = orders.map((order) => {
+            let orderLines = order.order_lines
+            if (status) {
+                orderLines = orderLines.filter((orderLine) => orderLine.status.toString() === status)
+            }
+
+            return {
+                ...order,
+                order_lines: orderLines
+            }
+        })
+
+        return userOrders
     }
 
     static async getOrderById(id) {
         return await orderModel.findById(id).lean()
     }
 
-    static async updateOrder(id, status) {
-        const existedOrder = await orderModel.findById(id).lean()
-        if (!existedOrder) {
+    static async updateOrder(orderLineId, status) {
+        const existedOrderLine = await orderModel.findOne({ 'order_lines._id': orderLineId })
+
+        if (!existedOrderLine) {
             throw new BadRequestError(ORDER_ERROR_MESSAGES.ORDER_NOT_FOUND)
         }
+
         const newOrder = {
-            ...existedOrder,
-            status
+            ...existedOrderLine,
+            order_lines: existedOrderLine.order_lines.map((orderLine) => {
+                if (orderLine._id.toString() === orderLineId) {
+                    orderLine.status = status
+                    return orderLine
+                }
+                return orderLine
+            })
         }
-        return await orderModel.findByIdAndUpdate(id, newOrder, { new: true })
+
+        return await orderModel.findByIdAndUpdate(existedOrderLine._id, newOrder, { new: true })
+
+        // const existedOrder = await orderModel.findById(id).lean()
+        // if (!existedOrder) {
+        //     throw new BadRequestError(ORDER_ERROR_MESSAGES.ORDER_NOT_FOUND)
+        // }
+        // const newOrder = {
+        //     ...existedOrder,
+        //     order_lines: existedOrder.order_lines.map((orderLine) => {
+        //         if (orderLine._id.equals(orderLineId)) {
+        //             return {
+        //                 ...orderLine,
+        //                 status
+        //             }
+        //         }
+        //         return orderLine
+        //     })
+        // }
+        // return await orderModel.findByIdAndUpdate(id, newOrder, { new: true })
     }
 
     static async deleteOrder(id) {
@@ -176,27 +219,27 @@ class OrderService {
         return await orderModel.findByIdAndDelete(id)
     }
 
-    static checkVariant = (product, orderVariants) => {
-        if (orderVariants.length > 0) {
-            const productVariants = Object.values(product.variants)
+    // static checkVariant = (product, orderVariants) => {
+    //     if (orderVariants.length > 0) {
+    //         const productVariants = Object.values(product.variants)
 
-            // Check if order variants length is equal to product variants length
-            if (orderVariants.length !== productVariants.length) {
-                throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
-            }
+    //         // Check if order variants length is equal to product variants length
+    //         if (orderVariants.length !== productVariants.length) {
+    //             throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
+    //         }
 
-            // Check if order variants are in product variants
-            const isOrderVariantsInProductVariants = orderVariants.every((orderVariant, index) => {
-                return productVariants[index].includes(orderVariant)
-            })
+    //         // Check if order variants are in product variants
+    //         const isOrderVariantsInProductVariants = orderVariants.every((orderVariant, index) => {
+    //             return productVariants[index].includes(orderVariant)
+    //         })
 
-            if (!isOrderVariantsInProductVariants) {
-                throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_NOT_FOUND)
-            }
-        } else if (Object.keys(product.variants).length > 0) {
-            throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
-        }
-    }
+    //         if (!isOrderVariantsInProductVariants) {
+    //             throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_NOT_FOUND)
+    //         }
+    //     } else if (Object.keys(product.variants).length > 0) {
+    //         throw new BadRequestError(PRODUCT_ERROR_MESSAGES.PRODUCT_VARIANT_REQUIRED)
+    //     }
+    // }
 }
 
 module.exports = OrderService
