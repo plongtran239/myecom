@@ -25,13 +25,13 @@ const ROLE = {
 }
 
 const DISCOUNT_TYPE = {
-    FIXED: {
-        value: 0,
-        name: 'fixed'
-    },
     PERCENTAGE: {
-        value: 1,
+        value: 0,
         name: 'percentage'
+    },
+    FIXED: {
+        value: 1,
+        name: 'fixed'
     }
 }
 

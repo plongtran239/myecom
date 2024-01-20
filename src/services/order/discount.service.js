@@ -43,13 +43,13 @@ class DiscountService {
             throw new NotFoundError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_FOUND)
         }
 
-        if (discount.start_date > Date.now()) {
-            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_STARTED)
-        }
+        // if (discount.start_date > Date.now()) {
+        //     throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_STARTED)
+        // }
 
-        if (discount.end_date < Date.now()) {
-            throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_EXPIRED)
-        }
+        // if (discount.end_date < Date.now()) {
+        //     throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_EXPIRED)
+        // }
 
         if (discount.is_active === false) {
             throw new BadRequestError(DISCOUNT_ERROR_MESSAGES.DISCOUNT_NOT_ACTIVE)
@@ -81,7 +81,7 @@ class DiscountService {
 
     static calculateDiscount(discount, subTotal) {
         let discountValue = 0
-        if (discount.type === DISCOUNT_TYPE.PERCENTAGE) {
+        if (discount.type === DISCOUNT_TYPE.PERCENTAGE.value) {
             discountValue = subTotal * (discount.value / 100)
         } else {
             discountValue = discount.value
