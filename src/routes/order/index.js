@@ -17,7 +17,7 @@ router.get('/:id', asyncHandler(orderController.getOrderById))
 
 router.post('/', discountValidator, asyncHandler(orderController.createOrder))
 
-router.put('/:id', asyncHandler(orderController.updateOrder))
+router.put('/update', asyncHandler(orderController.updateOrder))
 
 router.delete('/:id', asyncHandler(orderController.deleteOrder))
 

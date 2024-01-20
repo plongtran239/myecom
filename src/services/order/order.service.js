@@ -172,17 +172,25 @@ class OrderService {
         return await orderModel.findById(id).lean()
     }
 
-    static async updateOrder(orderLineId, status) {
-        const existedOrderLine = await orderModel.findOne({ 'order_lines._id': orderLineId })
+    static async updateOrder(data) {
+        // const existedOrderLine = await orderModel.findOne({ 'order_lines._id': orderLineId })
 
-        if (!existedOrderLine) {
+        // if (!existedOrderLine) {
+        //     throw new BadRequestError(ORDER_ERROR_MESSAGES.ORDER_NOT_FOUND)
+        // }
+
+        const { orderLineIds, status } = data
+
+        const existedOrder = await orderModel.findOne({ 'order_lines._id': orderLineIds[0] })
+
+        if (!existedOrder) {
             throw new BadRequestError(ORDER_ERROR_MESSAGES.ORDER_NOT_FOUND)
         }
 
         const newOrder = {
-            ...existedOrderLine,
-            order_lines: existedOrderLine.order_lines.map((orderLine) => {
-                if (orderLine._id.toString() === orderLineId) {
+            ...existedOrder,
+            order_lines: existedOrder.order_lines.map((orderLine) => {
+                if (orderLineIds.includes(orderLine._id.toString())) {
                     orderLine.status = status
                     return orderLine
                 }
@@ -190,7 +198,7 @@ class OrderService {
             })
         }
 
-        return await orderModel.findByIdAndUpdate(existedOrderLine._id, newOrder, { new: true })
+        return await orderModel.findByIdAndUpdate(existedOrder._id, newOrder, { new: true })
 
         // const existedOrder = await orderModel.findById(id).lean()
         // if (!existedOrder) {
