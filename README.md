@@ -1,32 +1,19 @@
 # Ecommerce
 
-## 1. System's Roles
+## System's Roles
 
 -   User
 -   Seller
 -   Admin
 
-## 2. Key Features
-
-### Authentication and authorization
-
--   Register
--   Login
--   Logout
--   Refresh token
-
-### Product
-
-## 3. Developing Features
-
-## 4. Technologies
+## Technologies
 
 -   IDE: Visual Studio Code
 -   JavaScript
 -   Nodejs v18.17.1
 -   MongoDB
 
-## 5. Getting Started
+## Getting Started
 
 To get started with the project, follow these steps:
 
@@ -56,7 +43,7 @@ Or run project with cloud database
 npm run dev:pro
 ```
 
-## 6. Contact
+## Contact
 
 For any questions or suggestions, please contact us via email:
 
